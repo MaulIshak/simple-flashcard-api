@@ -19,6 +19,23 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var logger = services.GetRequiredService<ILogger<Program>>();
+    try
+    {
+        // Instance AppDbContext from container
+        var context = services.GetRequiredService<AppDbContext>();
+        DbSeeder.SeedUser(context);
+        logger.LogInformation("Database Seeded.");
+    }
+    catch (Exception ex)
+    {
+        logger.LogError(ex, "Terjadi error saat seeding database.");
+    }
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
