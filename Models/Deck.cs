@@ -7,5 +7,7 @@ public class Deck
     public string? Description { get; set; }
     public bool IsPublished { get; set; }
     public DateTime PublishedAt {get; set;}
-
+    public ICollection<Card>? Cards { get; set; }
+    public ICollection<Review>? Reviews { get; set; }
+    public required User Owner { get; set; }
 }

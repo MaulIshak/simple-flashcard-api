@@ -8,4 +8,5 @@ public class Review
     public double Score {get; set;}
     public string? Text { get; set; }
     public DateTime CreatedAt { get; set; }
+    public required User User { get; set; }
 }
