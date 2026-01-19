@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SimpleFlashCardApi.Interfaces;
+using SimpleFlashCardApi.Mappers;
 using SimpleFlashCardApi.Models;
-using SimpleFlashCardApi.Repository;
 
 namespace SimpleFlashCardApi.Controllers
 {
@@ -21,8 +21,10 @@ namespace SimpleFlashCardApi.Controllers
             {
                 return BadRequest(ModelState);
             }
+            
+            var usersDto = users.Select(u => u.ToUserDto());
 
-            return Ok(users);
+            return Ok(usersDto);
         }
 
 
@@ -39,7 +41,7 @@ namespace SimpleFlashCardApi.Controllers
             if(!ModelState.IsValid)
                 return BadRequest();
 
-            return Ok(user);
+            return Ok(user.ToUserDto());
         }
 
     }

@@ -1,3 +1,6 @@
+#pragma warning disable CS8603 // Possible null reference return.
+
+
 using System;
 using SimpleFlashCardApi.Data;
 using SimpleFlashCardApi.Interfaces;
@@ -23,3 +26,6 @@ public class UserRepository(AppDbContext context) : IUserRepository
         return _context.Users.Any(user => user.Id == userId);
     }
 }
+
+
+#pragma warning restore CS8603 // Possible null reference return.
