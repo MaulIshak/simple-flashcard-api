@@ -1,11 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using SimpleFlashCardApi.Data;
+using SimpleFlashCardApi.Interfaces;
+using SimpleFlashCardApi.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -28,11 +31,11 @@ using (var scope = app.Services.CreateScope())
         // Instance AppDbContext from container
         var context = services.GetRequiredService<AppDbContext>();
         DbSeeder.SeedUser(context);
-        logger.LogInformation("Database Seeded.");
+        // logger.LogInformation("Database Seeded.");
     }
     catch (Exception ex)
     {
-        logger.LogError(ex, "Terjadi error saat seeding database.");
+        logger.LogError(ex, "Error seeding database.");
     }
 }
 
