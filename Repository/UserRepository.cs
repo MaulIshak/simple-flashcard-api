@@ -13,4 +13,13 @@ public class UserRepository(AppDbContext context) : IUserRepository
     {
         return _context.Users.OrderBy(user => user.Id).ToList();
     }
+    public User GetUser(int userId)
+    {
+        return _context.Users.Where(user => user.Id == userId).FirstOrDefault();
+    }
+
+    public bool IsExists(int userId)
+    {
+        return _context.Users.Any(user => user.Id == userId);
+    }
 }

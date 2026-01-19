@@ -24,5 +24,23 @@ namespace SimpleFlashCardApi.Controllers
 
             return Ok(users);
         }
+
+
+        [HttpGet("{userId}")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<User>))]
+        [ProducesResponseType(400)]
+        public IActionResult GetUser(int userId)
+        {
+            if(!_userRepository.IsExists(userId))
+                return NotFound();
+
+            User user = _userRepository.GetUser(userId);
+            
+            if(!ModelState.IsValid)
+                return BadRequest();
+
+            return Ok(user);
+        }
+
     }
 }
